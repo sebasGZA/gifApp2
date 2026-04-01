@@ -4,7 +4,6 @@ import { PreviousSearches } from "./gifs/components/PreviousSearches"
 import { SearchBar } from "./shared/components/SearchBar"
 import { useGifs } from "./gifs/hooks/useGifs"
 
-
 export const GifsApp = () => {
 
     const {
