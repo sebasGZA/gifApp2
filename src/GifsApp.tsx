@@ -1,38 +1,37 @@
-import { mockGifs } from "./mock-data/gifs.mock"
+import { CustomHeader } from "./shared/components/CustomHeader"
+import { GifList } from "./gifs/components/GifList"
+import { PreviousSearches } from "./gifs/components/PreviousSearches"
+import { SearchBar } from "./shared/components/SearchBar"
+import { useGifs } from "./gifs/hooks/useGifs"
+
 
 export const GifsApp = () => {
+
+    const {
+        gifs,
+        previousTerms,
+        handleSearch,
+        handleTermClicked
+    } = useGifs()
+
     return (
         <>
-            <div className="content-center">
-                <h1>Search gifs</h1>
-                <p>Find and share a perfect gif</p>
-            </div>
+            <CustomHeader
+                title="Search gifs"
+                description="Find and share a perfect gif"
+            />
 
-            <div className="search-container">
-                <input type="text" placeholder="Search gifs" />
-                <button>Search</button>
-            </div>
+            <SearchBar
+                placeholder="Search gifs"
+                onQuery={handleSearch}
+            />
 
-            <div className="previous-searches">
-                <h2>Previous search</h2>
-                <ul className="previous-searches-list">
-                    <li>Goku</li>
-                    <li>Saitama</li>
-                    <li>Elder ring</li>
-                </ul>
-            </div>
+            <PreviousSearches
+                searches={previousTerms}
+                onLabelClick={handleTermClicked}
+            />
 
-            <div className="gifs-container">
-                {mockGifs.map((gif) => (
-                    <div key={gif.id} className="gif-card">
-                        <img src={gif.url} alt={gif.title}/>
-                        <h3>{gif.title}</h3>
-                        <p>
-                            {gif.width}*{gif.height} (1.5mb)
-                        </p>
-                    </div>
-                ))}
-            </div>
+            <GifList gifs={gifs} />
         </>
     )
 }
