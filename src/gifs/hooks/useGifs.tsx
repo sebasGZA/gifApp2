@@ -18,20 +18,22 @@ export const useGifs = () => {
         }
         const gifs = await getGifsByQuery(term);
         setGifs(gifs);
+        gifsCache.current[term] = gifs;
+
     }
 
-    const handleSearch = async (query: string = '') => {
-        if (!query.trim().toLocaleLowerCase()) return;
-        if (previousTerms.includes(query)) return;
+    const handleSearch = async (term: string = '') => {
+        if (!term.trim().toLocaleLowerCase()) return;
+        if (previousTerms.includes(term)) return;
 
-        const currentTerms = previousTerms.slice(0, 8);
-        currentTerms.unshift(query);
+        const currentTerms = previousTerms.slice(0, 7);
+        currentTerms.unshift(term);
         setPreviousTerms(currentTerms);
 
-        const gifs = await getGifsByQuery(query);
+        const gifs = await getGifsByQuery(term);
         setGifs(gifs);
 
-        gifsCache.current[query] = gifs;
+        gifsCache.current[term] = gifs;
     }
 
     return {
