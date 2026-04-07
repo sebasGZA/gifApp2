@@ -28,3 +28,10 @@ dist-ssr
 
 # vitest
 __snapshots__
+
+
+#build
+dist
+
+#cov
+coverage
